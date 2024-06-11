@@ -14,8 +14,15 @@
 <body>
     <canvas id="drawingCanvas" width="800" height="600"></canvas>
     <script src="{% static 'drawing/pointlogic.js' %}"></script>
-    <button type="reset" id="resetButton">Reset Canvas</button>
     <button type="button" id="getPointsButton">Get Points</button>
+    <button type="reset" id="resetButton">Reset Canvas</button>
+
+    <form action="/submission/" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" id="submitButton">Submit choice</button>
+    </form>
+
 
 </body>
 </html>

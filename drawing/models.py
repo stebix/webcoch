@@ -1,5 +1,6 @@
 import uuid
 from pathlib import Path
+
 from django.db import models
 
 # Create your models here.
@@ -20,6 +21,11 @@ class AudiogramCanvas(models.Model):
 
     def __str__(self) -> str:
         return str(self.filepath)
+    
+    class Meta:
+        db_table: str = 'audiogram_canvas_images'
+
+
 
 POSITIONS: dict[str, str] = {
     'ENTPS'  : 'ENT physician',
@@ -40,9 +46,15 @@ class AudiogramPollSubmission(models.Model):
     position = models.CharField(verbose_name='user_position', max_length=10, choices=POSITIONS)
     submit_timestamp = models.DateTimeField(auto_now=True)
     points = models.JSONField('user_set_raw_points')
-    audiogram_canvas = models.ForeignKey(AudiogramCanvas, on_delete=models.RESTRICT)
+    # TODO: Add this later to connect the submission to a specifically selected background canvas
+    # audiogram_canvas = models.ForeignKey(AudiogramCanvas, on_delete=models.RESTRICT, )
 
     def __str__(self) -> str:
         s = f'{self.__class__.__name__}(ID={self.submit_ID}, timestamp={self.submit_timestamp})'
         return s
+    
+
+    class Meta:
+        db_table: str = 'audiogram_poll_submissions'
+
 

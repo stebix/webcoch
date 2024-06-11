@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'drawing/style.css' %}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawable Canvas</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="kliniklogo">
+                <img src={% static 'drawing/logo_HNO.png' %} width="300" height="99" alt="" >
+                <img src={% static 'drawing/logo_UKW.svg' %} width="260" height="80" alt="Universitätsklinik Würzburg">
+            </div>
+        </div>
+    </div>
+    <h2>Hearing Threshold Audiogram Poll</h2>
+    <div class="canvasContainer">
+        <canvas id="drawingCanvas" width="800" height="600"></canvas>
+        <!-- <label for="pointCoords">points: </label> -->
+        <textarea id="pointCoords" name="pointCoords" rows="5" cols="33" form="userSubmission" readonly>
+            - points -
+        </textarea>
+    </div>
+    <script src="{% static 'drawing/pointlogic.js' %}"></script>
+    <br><br>
+    <button
+        class="button-c"
+        type="button"
+        id="confirmDataButton"
+        title="Confirm and fix the data prior to submission.">
+        Confirm Data
+    </button>
+    <button
+    class="button-c"
+        type="reset"
+        id="resetButton"
+        title="Reset the canvas to initial state by fully removing all points.">
+        Reset Canvas
+    </button>
+    <br><br>
+    <form id="userSubmission" name="userSubmission" action="{% url 'submit_form' %}" method="post">
+        {% csrf_token %}
+        <label for="first_name">First name: </label>
+        <input type="text" id="first_name" name="first_name" required/>
+        <label for="last_name">Last name: </label>
+        <input type="text" id="last_name" name="last_name" required/>
+        <label for="email">E-mail: </label>
+        <input type="email" id="email" name="email" size="40" required/>
+        <label for="institution">Institution: </label>
+        <input type="text" id="institution" name="institution" size="100"/>
+            
+        <label for="position">Position/Role: </label>
+        <select id="position" name="position">
+            <option value="ENTPS">ENT physician</option>
+            <option value="ENTSG">ENT surgeon</option>
+            <option value="AUD">audiologist</option>
+            <option value="SPTP">speech therapist</option>
+            <option value="HATC">hearing aid technician</option>
+            <option value="OTHER">other</option>
+        </select>          
+        <button
+            class="button-c"
+            type="submit"
+            id="submitButton"
+            title="Submit the poll form ">
+            Submit form
+        </button>
+    </form>
+
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'drawing/style.css' %}">
+<head>
+    <meta charset="UTF-8">
+    <title>Submissions</title>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="kliniklogo">
+                <img src={% static 'drawing/logo_HNO.png' %} width="300" height="99" alt="" >
+                <img src={% static 'drawing/logo_UKW.svg' %} width="260" height="80" alt="Universitätsklinik Würzburg">
+            </div>
+        </div>
+    </div>
+    <p>basic submissions display</p>
+    {% if submissions %}
+    <ul>
+    {% for submission in submissions %}
+        <li> {{ submission.submit_timestamp }} {{ submission.last_name}} {{ submission.first_name}} | points :: {{ submission.points }} </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No submissions are available.</p>
+{% endif %}
+</body>
+</html>

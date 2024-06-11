@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'drawing/style.css' %}">
+<head>
+    <meta charset="UTF-8">
+    <title>Finished Submission</title>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="kliniklogo">
+                <img src={% static 'drawing/logo_HNO.png' %} width="300" height="99" alt="" >
+                <img src={% static 'drawing/logo_UKW.svg' %} width="260" height="80" alt="Universitätsklinik Würzburg">
+            </div>
+        </div>
+    </div>
+    <p>Thank you for completing the survey! Here is a summary of your submission information:</p>
+    {% if payload %}
+    <ul>
+        <li> Name: {{ payload.first_name }} {{ payload.last_name }} </li>
+        <li> Email: {{ payload.email }} </li>
+        <li> Work: {{ payload.position }} at {{ payload.institution }} </li>
+        <li> Timestamp: {{ payload.submit_timestamp }} </li>
+        <li> Coordinates: {{ payload.points }} </li>
+    </ul>
+
+    <p>You may now close this window or tab!</p>
+
+{% else %}
+    <p>No payload data available.</p>
+{% endif %}
+</body>
+</html>
